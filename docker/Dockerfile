@@ -28,8 +28,8 @@ RUN unzip './*.zip' -d /usr/src/wordpress/wp-content/plugins
 
 # Download lang files
 WORKDIR /usr/src/wordpress/wp-content/
-RUN wget https://s3-ap-northeast-1.amazonaws.com/tsukaby.blog/languages.zip
-RUN unzip languages.zip && rm languages.zip
+RUN wget https://downloads.wordpress.org/translation/core/5.1/ja.zip && \
+  unzip ja.zip -d languages/ && rm ja.zip
 
 
 # Change owner
