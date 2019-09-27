@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "quay.io/tsukaby/blog",
+    "Name": "985988196667.dkr.ecr.ap-northeast-1.amazonaws.com/tsukaby-blog:${VERSION}",
     "Update": "true"
   },
   "Ports": [

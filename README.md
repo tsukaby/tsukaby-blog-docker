@@ -1,36 +1,49 @@
-### Packaging
+# tsukaby-blog-docker
+
+## Development
+
+### Build
 
 ```
-./package_for_elastic_beanstalk.sh
+docker-compose build
 ```
 
-### Deploy
+### Run
 
-#### Create
+```
+docker-compose up
+```
+
+open "http://$(docker-machine)"
+
+Your database data is stored in the `.docker-compose/db-data` folder.
+If you want to reset the database, you can delete `.docker-compose/db-data/*`.
+
+## Deploy
+
+### Create
 
 ```
 # Set values
-APP_NAME=
 ENV_NAME=
 
 # List versions
-aws elasticbeanstalk describe-application-versions --application-name ${APP_NAME} --query 'ApplicationVersions[].VersionLabel'
+aws elasticbeanstalk describe-application-versions --application-name tsukaby-blog --query 'ApplicationVersions[].VersionLabel'
 
 # Set
 VERSION_LABEL=
 
 # Run command
-aws elasticbeanstalk create-environment --version-label ${VERSION_LABEL} --environment-name ${ENV_NAME} --cli-input-json file://eb/environments/prd.json
+aws elasticbeanstalk create-environment --environment-name ${ENV_NAME} --version-label ${VERSION_LABEL} --cli-input-json file://eb/environments/prd.json
 ```
 
-#### Update
+### Update
 
 ```
 # Set values
-APP_NAME=
 ENV_NAME=
 VERSION_LABEL=
 
 # Run command
-aws elasticbeanstalk update-environment --application-name ${APP_NAME} --environment-name ${ENV_NAME} --version-label ${VERSION_LABEL}
+aws elasticbeanstalk update-environment --application-name tsukaby-blog --environment-name ${ENV_NAME} --version-label ${VERSION_LABEL}
 ```
