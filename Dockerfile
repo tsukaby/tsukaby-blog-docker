@@ -17,6 +17,7 @@ RUN wget https://downloads.wordpress.org/plugin/wp-multibyte-patch.2.8.2.zip
 RUN wget https://downloads.wordpress.org/plugin/amazon-web-services.zip
 RUN wget https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.2.2.1.zip
 RUN wget https://downloads.wordpress.org/plugin/jetpack.7.7.2.zip
+RUN wget https://downloads.wordpress.org/plugin/siteguard.1.4.3.zip
 
 RUN unzip './*.zip' -d /usr/src/wordpress/wp-content/plugins
 
