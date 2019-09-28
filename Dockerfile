@@ -2,7 +2,7 @@ FROM wordpress:5.2.3
 
 # Install tools
 RUN apt-get update
-RUN apt-get -y --force-yes -o Dpkg::Options::="--force-confdef" install wget curl unzip python python-pip
+RUN apt-get -y --force-yes -o Dpkg::Options::="--force-confdef" install wget curl unzip python python-pip jq
 RUN pip install awscli
 
 # Install plugins
@@ -26,6 +26,9 @@ WORKDIR /usr/src/wordpress/wp-content/
 RUN wget https://downloads.wordpress.org/translation/core/5.1/ja.zip && \
   unzip ja.zip -d languages/ && rm ja.zip
 
+RUN echo 'RemoteIPHeader X-Forwarded-For' > /etc/apache2/conf-available/remoteip-cloudfront.conf && \
+  curl https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | select(.service=="CLOUDFRONT") | "RemoteIPTrustedProxy \(.ip_prefix)"' >> /etc/apache2/conf-available/remoteip-cloudfront.conf && \
+  a2enconf remoteip-cloudfront;
 
 # Change owner
 RUN chown -R www-data:www-data /usr/src/wordpress/wp-content
